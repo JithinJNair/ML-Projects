@@ -76,7 +76,7 @@ We’ll use a public dataset from the BBC comprised of 2225 articles, each label
 
 - Performed model validation using unseen bbc articles with Logistic regression,SVM and Random Forest methods.
 - Performed model evaluation on data scrapped from inshorts.com with Logistic regression,SVM and Random Forest methods.
-- SVM is selected for Document classiffier application development.
+- LogisticRegression is selected for Document classiffier application development.
 
 ## Summary & Conclusion
 
@@ -102,5 +102,5 @@ We’ll use a public dataset from the BBC comprised of 2225 articles, each label
 - Selecting best 6000 features can reduce the impact of overfitting.
 - We perfomed model validation and evaluation with logistic regression,SVM and Random forest and OneVsRest approach.
  All three algorithms provided similar results.
-- SVM with best 6000 features are selected for creating Document classifiaction application.
+- LogisticRegression with best 6000 features are selected for creating Document classifiaction application.
 - Tkinter is selected to develop the front end.
