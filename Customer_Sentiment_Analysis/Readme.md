@@ -75,22 +75,24 @@
 | **review_body** | The review text. |
 | **review_date** | The date the review was written. |
 
-
 ## **4. Cleaning the Reviews**
+- Performed nullvalue treatment.
 
-- Here, we will **clean** the review data by:
+
+## **5. Cleaning the Reviews**
+
+- Here, we will **clean** the review_body and review_headline data by:
 
   - **Changing** the **case** of each word to **lowercase**.
 
   - **Fixing** certain words like *i'm to i am*, *he's to he is*, *she's to she is*, etc.
 
-  - **Removing** all the **punctuation marks** from each review.
+  - **Removing** all the **punctuation marks** from each title and review.
 
-  - **Removing** any additional white space from each review.
+  - **Removing** any additional white space from each title and review.
+  - **Removing** any stopwords from each title and review.
 
-- Then, we will **create** a new column in the dataset `clean_reviews`, that will contain all the cleaned reviews.
-
-## **5. Calculating Polarity and Subjectivity of Reviews**
+## **6. Calculating Polarity and Subjectivity of Reviews**
 
 - **Polarity** is a float value within the range **[-1.0 to 1.0]**.
   
@@ -113,7 +115,7 @@
 - We will use `textblob` library's **TextBlob** class to find the **polarity** and **subjectivity** values for each review.
 
 
-## **6. Exploratory Data Analysis**
+## **7. Exploratory Data Analysis**
 
  <h4>We will try to answer the below questions using EDA.</h4>
 
@@ -138,26 +140,22 @@
  **Question 10:** *What are the Most Common Words in Neutral Reviews?*
 
  **Question 11:** *What are the Most Common Words in Negative Reviews?* 
- 
- **Question 12:** *What are the Most Common Words used in the Most Reviewed Product?*
-
- **Question 12:** *What are the Most Common Words used by the Customer having Most Reviews?*
 
 This **concludes** our Exploratory Data Analysis.
 
-## **7. Post Data Processing & Analysis**
+## **8. Post Data Processing & Analysis**
 
 - After completing the analysis on the data, we can move on towards fitting our Machine Learning models with our data.
 
 - But, our dataset still contains a lot of **redundant columns** in our data which won't help the model in making predictions.
 
-- Also, we need to **remove samples** having **subjectivity lower than** the *subjectivity threshold* value of **0.3**
+- Also, we need to **remove samples** having **subjectivity lower than** the *subjectivity threshold* value of **0.4**
 
 - And, we need to create a `sentiment` column containing the **labels** for our machine learning model.
 
-- Our final dataset contains about **72.4% positive** reviews, **20.1% negative** reviews, and **7.6% neutral** reviews.
+- Our final dataset contains about **65.42% positive** reviews, **27.95% negative** reviews, and **6.63% neutral** reviews.
 
-### **7.4 Data Splitting**
+### **9 Data Splitting**
 
 - Now, we will **split** the dataset into **Train** and **Test** subsets.
 
@@ -168,18 +166,10 @@ This **concludes** our Exploratory Data Analysis.
 *Using scikit-learn's train_test_split function to split the dataset into train and test sets.*
 *80% of the data will be in the train set and 20% in the test set, as specified by test_size=0.2*
 
-## **8. Model Development & Evaluation**
+## **10. Model Development & Evaluation**
+- Vectorize reviews with sklearn.TfidfVectorizer
 
-- Building a `tokenizer` function that will **split** each review into a **list of tokens**.
-
-- A **token** is a **single word** in this case, and the review will be splitted on a **single white space**.
-
-def tokenizer(text):
-    return text.split()
-
-- Building a **TFIDF Vectorizer**.
-
-- In this, first we create a **vocabulary** of **unique tokens** from the entire set of **documents** (i. e. **reviews**).
+- First tfdif we create a **vocabulary** of **unique tokens** from the entire set of **documents** (i. e. **reviews**).
 
 - Then we construct a **feature vector** from each document that contains the **term frequency** of how often each word occurs in a particular document.
 
@@ -203,33 +193,23 @@ def tokenizer(text):
 
 tfidf = TfidfVectorizer(max_features=15000, tokenizer=tokenizer)
 
-- Creating a **Machine Learning Pipeline**.
-
-- This will first, **vectorize** the data, creating a **TFIDF feature matrix** from the dataset, then will **pass** this **data** to our **classifier**.
-
-- The classifier in this case is the **Multinomial Naive Bayes** classifier.
-
-- This algorithm is **most suited** for **vectorized text** that contains a *large number of features*.
-
-- Creating a pipeline allows us to **streamline** our Machine Learning workflow by performing **multiple steps** in a single pass.
-
-*tfidf_mnb = Pipeline([('vect', tfidf), ('clf', MultinomialNB())])*
+**Prediction**
+- We build LogisticRegression with OneVsRest Classfier,as we have more than 2 classes in our target variale.
+  ie,positive,negative and neutral.
+- Predicted on both train and test data with the builed model.
 
 **Model Evaluation**
 
 - Checking the model **accuracy** on both train and test sets.
 
-- We are using the **classifier**'s `score` method, which calculates the **accuracy score** of the model on a given data.
-
-*print('Model Accuracy for the Train set:', tfidf_mnb.score(X_train, y_train))*
-
-*print('Model Accuracy for the Test set:', tfidf_mnb.score(X_test, y_test))*
+- We are using the **classification_report**'s which calculates **Precision,Recall,Accuraccy,and F1_Score** for individual classes and 
+  across the classes.
 
 **Observations:**
 
-- We get an **accuracy** of about **92%** on both of our train set and test set.
+- It achieved an **accuracy** of **94%** on both train and test sets.
 
-- This implies that our model is **not overfitting**.
+  - This implied that model is not overfitting and is **generalizing** well on unseen data.
 
 - It is **generalizing** well on unseen data, and giving good results.
 
@@ -239,120 +219,12 @@ tfidf = TfidfVectorizer(max_features=15000, tokenizer=tokenizer)
   
   - This might be due to the **large proportion** of *positive reviews* in the dataset.
 
-- The performace for **negative** reviews is also **good** with a **F1 score** of **85%**.
+- The performace for **negative** reviews is also **good** with a **F1 score** of **90%**.
 
-- But, our model **struggles** while predicting the *neutral sentiment*.
+- Our model **struggles** while predicting the *neutral sentiment*.
 
   - This is due to the fact the many neutral sentiment reviews contains **words** which can sometimes be **associated** with both *positive and negative reviews*.
 
   - Also, there are a lot **less** number of **neutral reviews** in the data.
 
   - And, hence leads to a lot of **false negatives** in the neutral sentiment.
-
-### **8.2 Using Pre-Trained Model**
-
-- We went to all the trouble of **calculating polarity**, **subjectivity** values for our reviews.
-
-- Then we **divided** the **reviews** into **sentiments** based on some conditions.
-
-- After that, we created a **TFIDF feature matrix** and **trained** a machine learning **model** to **predict** the **sentiment** of the reviews.
-
-- It was a very **time consuming** process.
-
-- But, what if we can **skip** all these steps and make **accurate predictions** without wasting any time.
-
-**Enters Transfer Learning**
-
-- **Transfer learning** is the process of **storing knowledge** gained while solving **one problem** and **applying** it to a **different** but **related problem**.
-
-- For example, **knowledge gained** while learning to *recognize cars* could **apply** when trying to *recognize trucks*.
-
-**NaiveBayesAnalyzer**
-
-- `NaiveBayesAnalyzer` of **textblob** library is an **NLTK** classifier trained on a **movie reviews** corpus.
-
-- We just need to **pass** the **review** and it will **predict** the **sentiment** present in it.
-
-- It returns its result as a named tuple of the form: **Sentiment(classification, p_pos, p_neg)**.
-
-*review = 'awesome fits really well & is very sturdy provides excellent protection at a great price'
-review_blob = TextBlob(review, analyzer=NaiveBayesAnalyzer())
-print(review)
-print(review_blob.sentiment)*
-
-- It predicts the **sentiment** of the review to be **positive**, which is correct.
-
-- Creating a helper function which will allow us to make predictions on a large number of reviews.
-
-- It will output **positive** if *p_pos is greater than 0.5*, **negative** if **p_pos is less than 0.5**, and **neutral** if *p_pos is equal to 0.5*
-
-- **NaiveBayesAnalyzer** is **very slow** when compared to scikit-learn's machine learning models.
-
-- Hence, it will take a **large amount of time** to make predictions on the entire dataset.
-
-- So, we will **sample** a **500 reviews** from the evaluation_df, and make predictions on them.
-
-**Model Evaluation**
-
-- We get an **accuracy** of about **70%** on our **500** reviews.
-
-- The pre-trained model is only good at making predictions about the positive sentiments.
-
-- Also, it must have been trained on a data containing only positive and negative sentiments.
-  
-  - That's why it is unable to make predictions about the neutral sentiment.
-
-**Observations:**
-
-- Here we can compare the predictions made by both the models.
-
-- Our TFIDF and Multinomial Naive Bayes model performs really well for this sentiment analysis task.
-
-- It is **fast** and more **accurate** than the pre-trained model.
-
-- The pre-trained model doesn't give very good results on this dataset.
-
-- But, this shouldn't stop us from using **Transfer Learning** and Pre-trained models.
-
-  - They are heavily used in Deep Learning for **Object Detection**, **Image Classification**, **Language Modelling**, etc.
-
-- We should use our **TFIDF - Multinomial Naive Bayes** model as our final model, for making **future predictions**.
-
-## **9. Conclusion**
-
-- We cleaned the reviews by:
-  - **Changing** the **case** of each word to **lowercase**,
-  - **Fixing** certain words,
-  - **Removing** all the **punctuation marks** from each review, and
-  - **Removing** any additional white space from each review.
-
-- Then, we calculate the **polarity** and **subjectivity** values for each review.
-
-- This allowed us to **analyze** our data **in-depth** to find relationship between various features like star rating and polarity.
-
-- We also calculated a **threshold** for the **subjectivity** value in our reviews.
-
-- We then found out the **most common words** associated with different sentiments.
-
-- After analyzing the data:
-  - We **remove** all **redundant columns** from the data,
-
-  - **Remove** all the **samples** having **subjectivity less than 0.3** i. e. the subjectivity threshold.
-
-  - **Divide reviews into sentiments** based on star rating and polarity.
-
-  - At last, we **split** the **data** into training and test sets.
-
-- During model building, we first created a **TFIDF matrix** of our data and **trained** a **Multinomial Naive Bayes** model.
-
-  - This model was then used to make **predictions** on the test set.
-
-  - It achieved an **accuracy** of **92%** on both train and test sets.
-
-  - This implied that model is not overfitting and is **generalizing** well on unseen data.
-
-- At last, we used a **pre-trained** model to make sentiment predictions on a **small sample** of our data.
-  
-  - The pre-trained model was **slower** than the ML model we build, and gave **worse results**.
-
-- So, we **discarded** this model, and used our **TFIDF - Multinomial NB** model as our **final model**.
