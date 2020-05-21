@@ -7,7 +7,7 @@ Text documents are one of the richest sources of data for businesses: whether in
 
 We’ll use a public dataset from the BBC comprised of 2225 articles, each labeled under one of 5 categories.
 
-![Automatic%20Document%20classification%20machine%20learning.png](attachment:Automatic%20Document%20classification%20machine%20learning.png)
+![News%20document%20classification/Automatic%20Document%20classification%20machine%20learning.png](attachment:Automatic%20Document%20classification%20machine%20learning.png)
 
 ###### Problem Statement
 
