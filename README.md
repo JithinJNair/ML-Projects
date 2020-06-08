@@ -1,5 +1,7 @@
 # Machine Learning
 
+![AI-MachineLearning](https://github.com/JithinJNair/ML-Projects/blob/master/AI-MachineLearning.jpg)
+
 Machine learning is enabling computers to tackle tasks that have, until now, only been carried out by people.
 
 From driving cars to translating speech, machine learning is driving an explosion in the capabilities of artificial intelligence -- helping software make sense of the messy and unpredictable real world.
@@ -16,6 +18,8 @@ The key difference from traditional computer software is that a human developer 
 Instead a machine-learning model has been taught how to reliably discriminate between the fruits by being trained on a large amount of data, in this instance likely a huge number of images labelled as containing a banana or an apple.
 
 Data, and lots of it, is the key to making machine learning possible.
+
+![ml_flow](https://github.com/JithinJNair/ML-Projects/blob/master/ml_flow.png)
 
 ## Repository Overview
 Repository contains projects leveraging the power Machine Learning to solve business problems.
