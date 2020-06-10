@@ -21,8 +21,6 @@ practices** and commitments further **down the supply
 chain**, **this** can **play** a **huge role in the rapid transition**
 **to** a **sustainable, low carbon economy**.
 
-<center><img src = "https://raw.githubusercontent.com/Karkerayashish/Supply_Chain_Profit_Analysis/master/Supply%20Chain%20Management%201.png"></center>
-
 So in **summary**, there is **there is direct impact on environment** in supply chain program. Most **companies** begin with the best **intentions** to **achieve successful** and **sustainable supply chain cost** management, but **somehow** seem to **lose** **momentum**, only to **see costs increase** against in **short order**. The **supply chain process** should be **handled** in such a way that there is **minimum impact** on **environment** while **covering maximum profit**. 
 
 **<h4>Note:</h4>** In this case study we will be **ignoring** the **study of environmental factors** because **most** of the **companies don't disclose** their **reports** on environmental impacts and only **focusing** on the **profit accquirement**.
@@ -32,8 +30,6 @@ So in **summary**, there is **there is direct impact on environment** in supply 
 ---
 
 Supply Chain **initiates** from gathering **raw materials**, **supplying** raw materials by supplier to the **manufacturing**, **delivering** to **retailers** by the **distributer**. Finally these products are **consumed** by the **consumer**. With the **increase** in **demand** this **process** **repeats** over again.
-
-<center><img src = "https://raw.githubusercontent.com/Karkerayashish/Supply_Chain_Profit_Analysis/master/Supply-Chain-Example.png"></center>
 
 **<h3>Scenario:</h3>**
 
