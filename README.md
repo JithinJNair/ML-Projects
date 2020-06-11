@@ -22,4 +22,4 @@ Data, and lots of it, is the key to making machine learning possible.
 ![ml_flow](https://github.com/JithinJNair/ML-Projects/blob/master/ml_flow.png)
 
 ## Repository Overview
-Repository contains projects leveraging the power Machine Learning to solve business problems.
+Repository contains projects leveraging the power of Machine Learning to solve business problems.
